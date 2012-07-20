@@ -1,0 +1,32 @@
+{
+	"name": "myfitnesspalExtension",
+	"version": "0.1",
+	"manifest_version": 2,
+	"description": "An extension for the MyFitnessPal website",
+	"options_page": "options.html",
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_title": "myfitness!"
+	},
+	"permissions" : [
+		"tabs",
+		"http://*/*",
+		"https://*.googleapis.com/",
+		"http://*.googleapis.com/"
+	],
+	"content_scripts": [
+		{
+			"matches": ["http://www.myfitnesspal.com/food/diary/geearf*"],
+			"js": [
+				"jquery/lib/jquery.min.js",
+				"jquery/lib/jquery-ui.min.js",
+				"content.js"
+			      ],
+			"run_at": "document_end",
+			"all_frames": true
+		}
+	],
+	"background": {
+		"page": "background.html"
+	}
+}

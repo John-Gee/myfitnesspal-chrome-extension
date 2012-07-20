@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>myfitnesspal extension options</title>
+		<!-- CSS -->
+		<link rel="stylesheet" href="slickgrid/css/slick.grid.css" type="text/css"/>
+		<link rel="stylesheet" href="jquery/css/jquery-ui.css" type="text/css" />
+		<link rel="stylesheet" href="options.css" type="text/css"/>
+		
+		<!-- Scripts -->
+		<script type="text/javascript" src="slickgrid/lib/firebugx.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="slickgrid/lib/jquery.event.drag-2.0.min.js"></script>
+		<script type="text/javascript" src="slickgrid/slick.core.js"></script>
+		<script type="text/javascript" src="slickgrid/plugins/slick.autotooltips.js"></script>
+		<script type="text/javascript" src="slickgrid/plugins/slick.cellrangedecorator.js"></script>
+		<script type="text/javascript" src="slickgrid/plugins/slick.cellrangeselector.js"></script>
+		<script type="text/javascript" src="slickgrid/plugins/slick.cellcopymanager.js"></script>
+		<script type="text/javascript" src="slickgrid/plugins/slick.cellselectionmodel.js"></script>
+		<script type="text/javascript" src="slickgrid/slick.editors.js"></script>
+		<script type="text/javascript" src="slickgrid/slick.grid.js"></script>
+		<script type="text/javascript" src="options.js"></script>
+	</head>
+	<body>
+		<div id="main">
+			<h1>myfitnesspal extension options:</h1>
+			<div id="myGrid" style="width:1075px;height:228px;"></div>
+			<div class="fg-buttonset fg-buttonset-single">
+				<button id="save" class="fg-button ui-state-default ui-priority-primary  ui-corner-left" type="submit">Save settings.</button>
+				<button id="reload" class="fg-button ui-state-default ui-priority-primary type="submit">Reload from last saved settings.</button>
+				<button id="reset" class="fg-button ui-state-default ui-priority-primary ui-corner-right type="submit">Reset to default settings.</button>
+			</div>
+		<div>
+	</body>
+</html>
