@@ -27,40 +27,6 @@ body {
     transition: margin-bottom 0.1s ease;
 }
 
-#tab-container {
-	margin: 5px 0;
-	padding: 0 27px 0 24px;
-	line-height: 17px;
-	color: #999;
-	cursor: pointer;
-	margin-bottom: 20px;
-}
-
-.tab-content {
-	display: none;
-}
-
-.show {
-	display: block!important;
-}
-
-.tab-name {
-	position: fixed;
-	background-color: white;
-	border-bottom: 1px solid #EEE;
-	width: 720px;
-	top: 0;
-	padding-top: 15px;
-	padding-bottom: 5px;
-	font-size: 1.5em;
-	color: #303942;
-	z-index: 1;
-}
-
-.tab-settings {
-	margin-top: 64px;
-}
-
 #search-tab {
 	height: 1px;
 	overflow: hidden;

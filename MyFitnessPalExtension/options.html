@@ -44,11 +44,83 @@
 					</div>
 				</div>
 			</div>
-			<div id="myGrid" style="width:1075px;height:228px;"></div>
-			<div class="fg-buttonset fg-buttonset-single">
-				<button id="save" class="fg-button ui-state-default ui-priority-primary  ui-corner-left" type="submit">Save settings.</button>
-				<button id="reload" class="fg-button ui-state-default ui-priority-primary type="submit">Reload from last saved settings.</button>
-				<button id="reset" class="fg-button ui-state-default ui-priority-primary ui-corner-right type="submit">Reset to default settings.</button>
+			<div class="tab-content show">
+				<h2 class="tab-name"Information</h2>
+				<div class="tab-settings"><div class="setting group">
+					<div class="setting group-content">
+						<div class="setting bundle description">
+							<div class="setting container description">
+								<div class="setting group-content">
+									<div class="setting bundle checkbox">
+										<div class="setting container checkbox">
+											<input id="h4whoou2" class="setting element checkbox" type="checkbox" value="true">
+											<label class="setting label checkbox" for="h4whoou2">Enable</label>
+										</div>
+									</div>
+									<div id="myGrid" style="width:1075px;height:228px;"></div>
+									<div class="fg-buttonset fg-buttonset-single">
+										<button id="save" class="fg-button ui-state-default ui-priority-primary  ui-corner-left" type="submit">Save settings.</button>
+										<button id="reload" class="fg-button ui-state-default ui-priority-primary type="submit">Reload from last saved settings.</button>
+										<button id="reset" class="fg-button ui-state-default ui-priority-primary ui-corner-right type="submit">Reset to default settings.</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content">
+					<h2 class="tab-name">Details</h2>
+					<div class="tab-settings">
+						<div class="setting group">
+							<div class="setting group-name">Sound</div>
+							<div class="setting group-content">
+								<div class="setting bundle slider">
+									<div class="setting container slider">
+										<label class="setting label slider">Notification volume:</label>
+										<input class="setting element slider" type="range" max="1" min="0" step="0.01">
+										<span class="setting display slider">0%</span>
+									</div>
+								</div>
+								<div class="setting bundle slider">
+								<div class="setting container slider">
+									<label class="setting label slider">Sound volume:</label>
+									<input class="setting element slider" type="range" max="100" min="0" step="1" style="margin-left: 29px; ">
+									<span class="setting display slider">0%</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="setting group">
+						<div class="setting group-name">Food</div>
+					<div class="setting group-content">
+					<div class="setting bundle popup-button">
+						<div class="setting container popup-button">
+							<label class="setting label popup-button">Soup 1 should be:</label>
+							<select class="setting element popup-button">
+								<option value="hot">Hot and yummy</option><option value="cold">cold</option>
+							</select>
+						</div>
+					</div>
+					<div class="setting bundle list-box">
+						<div class="setting container list-box">
+							<label class="setting label list-box">Soup 2 should be:</label>
+							<select class="setting element list-box" size="2">
+								<option value="hot">Hot and yummy</option>
+								<option value="cold">cold</option>
+							</select>
+						</div>
+					</div>
+					<div class="setting bundle radio-buttons">
+						<label class="setting label radio-buttons">Soup 3 should be:</label>
+						<div class="setting container radio-buttons">
+							<input id="h4whoou5" name="h4whoou4" class="setting element radio-buttons" type="radio" value="hot">
+							<label class="setting element-label radio-buttons" for="h4whoou5">Hot and yummy</label>
+						</div>
+						<div class="setting container radio-buttons"><input id="h4whoou6" name="h4whoou4" class="setting element radio-buttons" type="radio" value="cold">
+							<label class="setting element-label radio-buttons" for="h4whoou6">cold</label>
+						</div>
+					</div>
+				</div>
 			</div>
 		<div>
 	</body>
