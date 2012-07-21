@@ -1,14 +1,239 @@
 @import url('slick-default-theme.css');
 
+html, body {
+    height: 100%;
+	font size:100%
+}
+
 body {
-  background: beige;
-  padding: 0;
-  margin: 8;
+    font-family: "Lucida Grande", sans-serif;
+    line-height: 1.8;
+    color: black;
+}
+
+* {
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+#name {
+    margin: 21px 27px 12px 23px;
+    font-size: 1.5em;
+    color: #5c6166;
+    -webkit-transition: margin-bottom 0.1s ease;
+    -moz-transition: margin-bottom 0.1s ease;
+    -o-transition: margin-bottom 0.1s ease;
+    -ms-transition: margin-bottom 0.1s ease;
+    transition: margin-bottom 0.1s ease;
+}
+
+#tab-container {
+	margin: 5px 0;
+	padding: 0 27px 0 24px;
+	line-height: 17px;
+	color: #999;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+
+.tab-content {
+	display: none;
+}
+
+.show {
+	display: block!important;
+}
+
+.tab-name {
+	position: fixed;
+	background-color: white;
+	border-bottom: 1px solid #EEE;
+	width: 720px;
+	top: 0;
+	padding-top: 15px;
+	padding-bottom: 5px;
+	font-size: 1.5em;
+	color: #303942;
+	z-index: 1;
+}
+
+.tab-settings {
+	margin-top: 64px;
+}
+
+#search-tab {
+	height: 1px;
+	overflow: hidden;
+	-webkit-transition: height 0.1s ease;
+	-moz-transition: height 0.1s ease;
+	-o-transition: height 0.1s ease;
+	-ms-transition: height 0.1s ease;
+	transition: height 0.1s ease;
+}
+
+.setting.bundle {
+	max-width: 600px;
+	margin-bottom: 5px;
+}
+
+.clearfix, .container {
+	display: block;
+}
+
+.container {
+	width: 950px;
+	margin: 0 auto;
+}
+
+.clearfix::after, .container::after {
+	height: 0;
+	clear: both;
+	content: " 0020";
+	display: block;
+	visibility: hidden;
+	overflow: hidden;
+}
+
+p {
+	margin: 0 0 1.5em;
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+
+#search {
+	position: fixed;
+	width: 250px;
+	top: 19px;
+	left: 618px;
+	z-index: 2;
+}
+
+#nothing-found {
+	display: none;
+	margin-top: 10px;
+	font-size: 18px;
+	font-weight: lighter;
+	color: #999;
+}
+
+input[type="search"] {
+	padding: 1px;
+}
+
+input[type="search"] {
+	-webkit-appearance: searchfield;
+	box-sizing: border-box;
+}
+
+input, input[type="password"], input[type="search"], isindex {
+	-webkit-appearance: textfield;
+	padding: 1px;
+	background-color: white;
+	border: 2px inset;
+	border-image: initial;
+	-webkit-rtl-ordering: logical;
+	-webkit-user-select: text;
+	cursor: auto;
+}
+
+input, input[type="password"], input[type="search"], isindex {
+	-webkit-appearance: textfield;
+	padding: 1px;
+	background-color: white;
+	border: 2px inset;
+	border-image: initial;
+	-webkit-rtl-ordering: logical;
+	-webkit-user-select: text;
+	cursor: auto;
+}
+
+input, textarea, keygen, select, button, isindex {
+	margin: 0em;
+	font: -webkit-small-control;
+	color: initial;
+	letter-spacing: normal;
+	word-spacing: normal;
+	line-height: normal;
+	text-transform: none;
+	text-indent: 0px;
+	text-shadow: none;
+	display: inline-block;
+	text-align: -webkit-auto;
+}
+
+#tab-container .tab.active, html.searching #search-tab {
+	border-left: 6px solid #464E5A;
+	padding-left: 18px;
+	color: #464E5A;
+}
+
+#tab-container .tab {
+	margin: 5px 0;
+	padding: 0 27px 0 24px;
+	line-height: 17px;
+	color: #999;
+	cursor: pointer;
+}
+
+h1 {
+	margin-bottom: .5em;
+	font-size: 3em;
+	line-height: 1;
 }
 
 h2 {
-  font-size: 10pt;
-  border-bottom: 1px dotted gray;
+	margin-bottom: .75em;
+	font-size: 2em;
+}
+
+h2 {
+	display: block;
+	font-size: 1.5em;
+	-webkit-margin-before: 0.83em;
+	-webkit-margin-after: 0.83em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	color: #111;
+}
+
+#content {
+	position: relative;
+	padding: 20px;
+	padding-top: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+#sidebar {
+    float: left;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.no-select {
+	cursor: default;
+}
+
+div {
+	display: block;
 }
 
 ul {
