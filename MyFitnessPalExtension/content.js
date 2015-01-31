@@ -193,9 +193,37 @@ function removejscssfile(filename, filetype){
 
 
 function log(str) {
-  console.log(str);
-  logDiv.innerHTML += str + "<br>";
+    console.log(str);
+    logDiv.innerHTML += str + "<br>";
 }
+
+Date.prototype.addDays = function (n) {
+    var time = this.getTime();
+    var newDate = new Date(time + (n * 24 * 60 * 60 * 1000));
+    this.setTime(newDate.getTime());
+    return this;
+};
+
+function getFullX(x) {
+    if(x > 9)
+    {
+        return x
+    }
+    return "0".concat(x);
+}
+
+Date.prototype.getFullMonth = function () {
+    var month = this.getMonth() + 1;
+    return getFullX(month);
+};
+
+Date.prototype.getFullDate = function () {
+    var date = this.getDate();
+    return getFullX(date);
+};
+
+
+
 
 var logDiv = document.createElement("div");
 logDiv.style.border = "1px dashed black";
@@ -205,6 +233,26 @@ document.body.appendChild(logDiv);
 $(function(){
         
         chrome.extension.sendMessage({data: true}, function(response) {
+            var url = document.URL;
+            var dateParam = "?date=";
+            if(url.indexOf(dateParam) == -1)
+            {                
+                var nextElement = FindElementByClass("next");
+                var nextDate = nextElement.href.substring(nextElement.href.indexOf(dateParam) + 6);
+                
+                var d = new Date(nextDate);
+                d.addDays(-1);
+                var year = d.getFullYear()
+                var month = d.getFullMonth()
+                var date = d.getDate()
+                
+                // without that extra 0 all the time, we get an infinite loop
+                // that extra 0 breaks it somehow without breaking functionality
+                var newURL = url.concat(dateParam, year, "-", month, "-", "0".concat(date));
+                //alert(newURL);
+                window.location.replace(newURL);
+            }
+            
             var json = JSON.parse(response);
             var days = JSON.parse(json[0]);
             var data = JSON.parse(json[1]);
