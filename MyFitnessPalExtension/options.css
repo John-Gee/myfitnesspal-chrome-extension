@@ -220,6 +220,7 @@ li {
   background: white;
   outline: 0;
   border: 1px solid gray;
+  margin-top: 10px;
 }
 
 .grid-header {

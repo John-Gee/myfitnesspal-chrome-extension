@@ -1,13 +1,13 @@
 var grid;
 var data = undefined;
 var columns = [
-	{id: "none", name: "", field: "none", width: 100, editor: FormulaEditor},
+	{id: "none", name: "", field: "none", width: 100, focusable: false},
 	{id: "carbs", name: "Carbs", field: "carbs", width: 100, editor: FormulaEditor},
 	{id: "fat", name: "Fat", field: "fat", width: 100, editor: FormulaEditor},
 	{id: "protein", name: "Protein", field: "protein", width: 100, editor: FormulaEditor},
-	{id: "totalderivedcalories", name: "Total derived calories", field: "totalderivedcalories", width: 225},
+	{id: "totalderivedcalories", name: "Total derived calories", field: "totalderivedcalories", width: 225, focusable: false},
 	{id: "totaldesiredcalories", name: "Total desired calories", field: "totaldesiredcalories", width: 225, editor: FormulaEditor},
-	{id: "totalcaloriesdifference", name: "Total calories difference", field: "totalcaloriesdifference", width: 225},
+	{id: "totalcaloriesdifference", name: "Total calories difference", field: "totalcaloriesdifference", width: 225, focusable: false},
 ];
 
 var options = {
@@ -56,7 +56,7 @@ function FormulaEditor(args) {
 	init();
 }
 
-function Refresh()
+function Refresh(isCalorieCycling)
 {
 	var sumoftotalderivedcalories = parseInt(0);
 	var sumoftotaldesiredcalories = parseInt(0);
@@ -120,10 +120,21 @@ function ReloadData()
 	}
 }
 
+function SetCalorieCycling()
+{    
+    if(document.getElementById("cal").checked)
+        Refresh(true);
+    else
+        Refresh(false);
+    
+    grid.setData(data);
+    grid.render();
+}
+
 function Reset()
 {
 	data = []
-	Refresh();
+	Refresh(false);
 }
 
 var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Week"];
@@ -149,6 +160,8 @@ $(function() {
 			$(this).removeClass("ui-state-active");
 		}
 	});
+        
+    $( "#cal" ).button();
 	
 	$("#save").click(function() {
 		Save();
@@ -169,15 +182,31 @@ $(function() {
 	ReloadData();
 	
 	if(data.length == 0 )
-	  Refresh();
-	
+	  Refresh(false);
+    
 	grid = new Slick.Grid("#myGrid", data, columns, options);
 	
 	grid.onSelectedRowsChanged.subscribe(function(args){
-		Refresh();
-		grid.setData(data);
-		grid.render();
+        /*var cell2 = grid.getActiveCell();
+        var id = grid.getDataItem(cell2.
+        if(isNaN(data[cell.row].cell2.cell))
+        {
+            data[cell.row].cell = 0;
+        }
+        else*/  
+        {
+            Refresh(false);
+            grid.setData(data);
+            grid.render();
+        }
 	});
+    
+    grid.onClick.subscribe(function(ev) { 
+        var cell = grid.getCellFromEvent(ev);
+        return;
+        grid.updateRow(cell.row);
+        ev.stopPropagation();
+    });
 	
 	grid.setSelectionModel(new Slick.CellSelectionModel());
 	grid.registerPlugin(new Slick.AutoTooltips());
