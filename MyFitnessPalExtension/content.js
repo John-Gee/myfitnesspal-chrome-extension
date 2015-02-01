@@ -197,27 +197,26 @@ function log(str) {
     logDiv.innerHTML += str + "<br>";
 }
 
-Date.prototype.addDays = function (n) {
+function getFullX(x) {
+    if(x > 9)
+        return x;
+    
+    return "0".concat(x);
+}
+
+Date.prototype.addDays = function(n) {
     var time = this.getTime();
     var newDate = new Date(time + (n * 24 * 60 * 60 * 1000));
     this.setTime(newDate.getTime());
     return this;
 };
 
-function getFullX(x) {
-    if(x > 9)
-    {
-        return x
-    }
-    return "0".concat(x);
-}
-
-Date.prototype.getFullMonth = function () {
+Date.prototype.getFullMonth = function() {
     var month = this.getMonth() + 1;
     return getFullX(month);
 };
 
-Date.prototype.getFullDate = function () {
+Date.prototype.getFullDate = function() {
     var date = this.getDate();
     return getFullX(date);
 };
@@ -244,7 +243,7 @@ $(function(){
                 d.addDays(-1);
                 var year = d.getFullYear()
                 var month = d.getFullMonth()
-                var date = d.getDate()
+                var date = d.getFullDate()
                 
                 // without that extra 0 all the time, we get an infinite loop
                 // that extra 0 breaks it somehow without breaking functionality
