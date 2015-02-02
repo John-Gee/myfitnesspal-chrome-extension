@@ -27,107 +27,19 @@ body {
     transition: margin-bottom 0.1s ease;
 }
 
-#search-tab {
-	height: 1px;
-	overflow: hidden;
-	-webkit-transition: height 0.1s ease;
-	-moz-transition: height 0.1s ease;
-	-o-transition: height 0.1s ease;
-	-ms-transition: height 0.1s ease;
-	transition: height 0.1s ease;
+#url {
+    font-size: 20px;
+    color: #5c6166;
+    -webkit-transition: margin-bottom 0.1s ease;
+    -moz-transition: margin-bottom 0.1s ease;
+    -o-transition: margin-bottom 0.1s ease;
+    -ms-transition: margin-bottom 0.1s ease;
+    transition: margin-bottom 0.1s ease;
 }
 
-.setting.bundle {
-	max-width: 600px;
-	margin-bottom: 5px;
-}
-
-.clearfix, .container {
-	display: block;
-}
-
-.container {
-	width: 950px;
-	margin: 0 auto;
-}
-
-.clearfix::after, .container::after {
-	height: 0;
-	clear: both;
-	content: " 0020";
-	display: block;
-	visibility: hidden;
-	overflow: hidden;
-}
-
-p {
-	margin: 0 0 1.5em;
-	display: block;
-	-webkit-margin-before: 1em;
-	-webkit-margin-after: 1em;
-	-webkit-margin-start: 0px;
-	-webkit-margin-end: 0px;
-}
-
-#search {
-	position: fixed;
-	width: 250px;
-	top: 19px;
-	left: 618px;
-	z-index: 2;
-}
-
-#nothing-found {
-	display: none;
-	margin-top: 10px;
-	font-size: 18px;
-	font-weight: lighter;
-	color: #999;
-}
-
-input[type="search"] {
-	padding: 1px;
-}
-
-input[type="search"] {
-	-webkit-appearance: searchfield;
-	box-sizing: border-box;
-}
-
-input, input[type="password"], input[type="search"], isindex {
-	-webkit-appearance: textfield;
-	padding: 1px;
-	background-color: white;
-	border: 2px inset;
-	border-image: initial;
-	-webkit-rtl-ordering: logical;
-	-webkit-user-select: text;
-	cursor: auto;
-}
-
-input, input[type="password"], input[type="search"], isindex {
-	-webkit-appearance: textfield;
-	padding: 1px;
-	background-color: white;
-	border: 2px inset;
-	border-image: initial;
-	-webkit-rtl-ordering: logical;
-	-webkit-user-select: text;
-	cursor: auto;
-}
-
-input, textarea, keygen, select, button, isindex {
-	margin: 0em;
-	font: -webkit-small-control;
-	color: initial;
-	letter-spacing: normal;
-	word-spacing: normal;
-	line-height: normal;
-	text-transform: none;
-	text-indent: 0px;
-	text-shadow: none;
-	display: inline-block;
-	text-align: -webkit-auto;
+input[type='checkbox'] {
+    width: 20px;
+    height: 20px;        
 }
 
 #tab-container .tab.active, html.searching #search-tab {

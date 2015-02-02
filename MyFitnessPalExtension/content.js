@@ -232,29 +232,33 @@ document.body.appendChild(logDiv);
 $(function(){
         
         chrome.extension.sendMessage({data: true}, function(response) {
-            var url = document.URL;
-            var dateParam = "?date=";
-            if(url.indexOf(dateParam) == -1)
-            {                
-                var nextElement = FindElementByClass("next");
-                var nextDate = nextElement.href.substring(nextElement.href.indexOf(dateParam) + 6);
-                
-                var d = new Date(nextDate);
-                d.addDays(-1);
-                var year = d.getFullYear()
-                var month = d.getFullMonth()
-                var date = d.getFullDate()
-                
-                // without that extra 0 all the time, we get an infinite loop
-                // that extra 0 breaks it somehow without breaking functionality
-                var newURL = url.concat(dateParam, year, "-", month, "-", "0".concat(date));
-                //alert(newURL);
-                window.location.replace(newURL);
-            }
-            
             var json = JSON.parse(response);
             var days = JSON.parse(json[0]);
             var data = JSON.parse(json[1]);
+            var fixURL = JSON.parse(json[2]);
+            
+            if (fixURL)
+            {
+                var url = document.URL;
+                var dateParam = "?date=";
+                if(url.indexOf(dateParam) == -1)
+                {                
+                    var nextElement = FindElementByClass("next");
+                    var nextDate = nextElement.href.substring(nextElement.href.indexOf(dateParam) + 6);
+                    
+                    var d = new Date(nextDate);
+                    d.addDays(-1);
+                    var year = d.getFullYear()
+                    var month = d.getFullMonth()
+                    var date = d.getFullDate()
+                    
+                    // without that extra 0 all the time, we get an infinite loop
+                    // that extra 0 breaks it somehow without breaking functionality
+                    var newURL = url.concat(dateParam, year, "-", month, "-", "0".concat(date));
+                    //alert(newURL);
+                    window.location.replace(newURL);
+                }
+            }
             
             var dateElement = FindElementByClass("date");
             
