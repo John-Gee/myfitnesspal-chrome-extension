@@ -10,7 +10,7 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 };
 
       
-chrome.extension.onMessage.addListener(function(msg, _, sendResponse) {
+chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
   
     sendResponse(JSON.stringify([
         localStorage["days"],

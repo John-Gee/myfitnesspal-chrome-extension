@@ -231,82 +231,80 @@ document.body.appendChild(logDiv);
 
 $(function(){
         
-        chrome.extension.sendMessage({data: true}, function(response) {
-            var json = JSON.parse(response);
-            var days = JSON.parse(json[0]);
-            var data = JSON.parse(json[1]);
-            var fixURL = JSON.parse(json[2]);
-            
-            if (fixURL)
-            {
-                var url = document.URL;
-                var dateParam = "?date=";
-                if(url.indexOf(dateParam) == -1)
-                {                
-                    var nextElement = FindElementByClass("next");
-                    var nextDate = nextElement.href.substring(nextElement.href.indexOf(dateParam) + 6);
-                    
-                    var d = new Date(nextDate);
-                    d.addDays(-1);
-                    var year = d.getFullYear()
-                    var month = d.getFullMonth()
-                    var date = d.getFullDate()
-                    
-                    // without that extra 0 all the time, we get an infinite loop
-                    // that extra 0 breaks it somehow without breaking functionality
-                    var newURL = url.concat(dateParam, year, "-", month, "-", "0".concat(date));
-                    //alert(newURL);
-                    window.location.replace(newURL);
-                }
+    chrome.runtime.sendMessage({data: true}, function(response) {
+        var json = JSON.parse(response);
+        var days = JSON.parse(json[0]);
+        var data = JSON.parse(json[1]);
+        var fixURL = JSON.parse(json[2]);
+        
+        if (fixURL)
+        {
+            var url = document.URL;
+            var dateParam = "?date=";
+            if(url.indexOf(dateParam) == -1)
+            {                
+                var nextElement = FindElementByClass("next");
+                var nextDate = nextElement.href.substring(nextElement.href.indexOf(dateParam) + 6);
+                
+                var d = new Date(nextDate);
+                d.addDays(-1);
+                var year = d.getFullYear()
+                var month = d.getFullMonth()
+                var date = d.getFullDate()
+                
+                var addURL = "/diary/add";
+                var newAddURL = addURL.concat(dateParam, year, "-", month, "-", date);
+                document.body.innerHTML = document.body.innerHTML.replace(addURL, newAddURL);
             }
-            
-            var dateElement = FindElementByClass("date");
-            
-            var day = parseInt(0);
-            
-            for(var i = 0; i < days.length; ++i)
+        }
+        
+        var dateElement = FindElementByClass("date");
+        
+        var day = parseInt(0);
+        
+        for(var i = 0; i < days.length; ++i)
+        {
+            if(dateElement.innerHTML.indexOf(days[i]) != -1)
             {
-                if(dateElement.innerHTML.indexOf(days[i]) != -1)
-                {
-                    day = parseInt(i);
-                    break;
-                }
+                day = parseInt(i);
+                break;
             }
-            
-            var goalCarbs = data[day].carbs;
-            var goallFat = data[day].fat;
-            var goalProtein = data[day].protein;
-            var goalCalories = data[day].totaldesiredcalories;
-            
-            var mealHeaderElement = FindMealHeaderElement();
-            
-            // cannot end with 'n'
-            var postName = "Protei";
-            var names = [];
-            names.push("DerivedCalories");
-            
-            var indexes = {};
-            
-            AddHeaders(mealHeaderElement, names, postName, indexes);
-            AddFooters(mealHeaderElement, names, indexes);
-            
-            ReplaceGoals(goalCalories, goalCarbs, goallFat, goalProtein);
-            AddDerivedCalories(mealHeaderElement, indexes);            
-            
-            $('.google_ads_with_related_links').remove();
-            removejscssfile("show_ads.js", "js");
-            
-            var contentElem = document.getElementsByTagName("content");
-            content.removeChild(content.firstChild);
-            
-            var divs = document.body.children;
-            for (var i=divs.length - 1; i>=0; --i)
+        }
+        
+        var goalCarbs = data[day].carbs;
+        var goallFat = data[day].fat;
+        var goalProtein = data[day].protein;
+        var goalCalories = data[day].totaldesiredcalories;
+        
+        var mealHeaderElement = FindMealHeaderElement();
+        
+        // cannot end with 'n'
+        var postName = "Protei";
+        var names = [];
+        names.push("DerivedCalories");
+        
+        var indexes = {};
+        
+        AddHeaders(mealHeaderElement, names, postName, indexes);
+        AddFooters(mealHeaderElement, names, indexes);
+        
+        ReplaceGoals(goalCalories, goalCarbs, goallFat, goalProtein);
+        AddDerivedCalories(mealHeaderElement, indexes);            
+        
+        $('.google_ads_with_related_links').remove();
+        removejscssfile("show_ads.js", "js");
+        
+        var contentElem = document.getElementsByTagName("content");
+        content.removeChild(content.firstChild);
+        
+        var divs = document.body.children;
+        for (var i=divs.length - 1; i>=0; --i)
+        {
+            if(divs[i].outerHTML.replace('"', '').replace('"', '') == "<div style=border: 1px dashed black;></div>")
             {
-                if(divs[i].outerHTML.replace('"', '').replace('"', '') == "<div style=border: 1px dashed black;></div>")
-                {
-                    divs[i].parentNode.removeChild(divs[i]);
-                }
+                divs[i].parentNode.removeChild(divs[i]);
             }
-        });
+        }
+    });
 });
 
