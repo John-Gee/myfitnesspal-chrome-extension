@@ -178,7 +178,8 @@ function SetColorElement(element)
         element.className = "negative";
 }
 
-function removejscssfile(filename, filetype){
+function removejscssfile(filename, filetype)
+{
     var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist from
     var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
     var allsuspects=document.getElementsByTagName(targetelement)
@@ -190,12 +191,14 @@ function removejscssfile(filename, filetype){
     }
 }
 
-function log(str) {
+function log(str)
+{
     console.log(str);
     logDiv.innerHTML += str + "<br>";
 }
 
-function getFullX(x) {
+function getFullX(x)
+{
     if(x > 9)
         return x;
     
@@ -219,6 +222,19 @@ Date.prototype.getFullDate = function() {
     return getFullX(date);
 };
 
+function GetMonthName(monthNumber)
+{
+    var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+    
+    var number = parseInt(monthNumber);
+    
+    if (isNaN(number) || (number < 1) || (number > 12))
+        return "undefined";
+    
+    return monthNames[number - 1];
+          
+}
+
 var logDiv = document.createElement("div");
 logDiv.style.border = "1px dashed black";
 document.body.appendChild(document.createElement("br"));
@@ -241,7 +257,10 @@ $(function(){
                 var nextElement = FindElementByClass("next");
                 var nextDate = nextElement.href.substring(nextElement.href.indexOf(dateParam) + 6);
             
-                var d = new Date(nextDate);
+                var nextDateValues = nextDate.split("-");
+                // fix for UTC parsing
+                var d = new Date(GetMonthName(nextDateValues[1]).concat(" ", nextDateValues[2], ", ", nextDateValues[0]));
+                //d.setTime(d.getTime() + d.getTimezoneOffset()*60*1000);
                 d.addDays(-1);
                 var year = d.getFullYear()
                 var month = d.getFullMonth()
