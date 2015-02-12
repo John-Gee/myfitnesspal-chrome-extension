@@ -19,12 +19,25 @@ function CalculateTotalCaloriesFromStrMacros(totalCarbs, totalFat, totalProtein)
 
 function FindElementByClass(classString)
 {
+    var elements = FindElementsByClass(classString);
+    
+    if (elements.length > 0)
+        return elements[0];
+    
+    return undefined;
+}
+
+function FindElementsByClass(classString)
+{
     var elems = document.getElementsByTagName('*'), i;
+    
+    var elements = [];
     
     for(i in elems)
          if ((" " + elems[i].className + " ").indexOf(" " + classString + " ") > -1)
-              return elems[parseInt(i)];
-    return undefined;
+              elements.push(elems[parseInt(i)]);
+         
+    return elements;
 }
 
 function FindMealHeaderElement()
@@ -251,7 +264,7 @@ $(function(){
         if (fixURL)
         {
             var url = document.URL;
-            var dateParam = "?date=";
+            var dateParam = "date=";
             if(url.indexOf(dateParam) == -1)
             {          
                 var nextElement = FindElementByClass("next");
@@ -260,15 +273,16 @@ $(function(){
                 var nextDateValues = nextDate.split("-");
                 // fix for UTC parsing
                 var d = new Date(GetMonthName(nextDateValues[1]).concat(" ", nextDateValues[2], ", ", nextDateValues[0]));
-                //d.setTime(d.getTime() + d.getTimezoneOffset()*60*1000);
                 d.addDays(-1);
                 var year = d.getFullYear()
                 var month = d.getFullMonth()
                 var date = d.getFullDate()
                 
-                var addURL = "/diary/add";
-                var newAddURL = addURL.concat(dateParam, year, "-", month, "-", date);
-                document.body.innerHTML = document.body.innerHTML.replace(/\/diary\/add/g, newAddURL);
+                var addURL = "/diary/add?";
+                var newAddURL = addURL.concat(dateParam, year, "-", month, "-", date, "&");
+                var addFoodElements = FindElementsByClass("add_food");
+                for(var i = 0; i < addFoodElements.length; ++i)
+                    addFoodElements[i].href = addFoodElements[i].href.replace(addURL, newAddURL);
             }
         }
 
