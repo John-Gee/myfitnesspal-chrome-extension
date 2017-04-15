@@ -62,18 +62,19 @@ function AddHeaders(mealHeaderElement, names, afterName, indexes)
     
     for(i in headers)
     {
-     if((headers[i].innerHTML != undefined) && (headers[i].innerHTML.indexOf(afterName) != -1))
+     if(headers[i].innerHTML == undefined)
+         break;
+     else if(headers[i].innerText == "Carbs\ng\n")
+         indexes.Carbs = i;
+     else if(headers[i].innerText == "Fat\ng\n")
+         indexes.Fat = i;
+     else if(headers[i].innerText == "Protein\ng\n")
+         indexes.Protein = i;
+     else
      {
          afterNode = headers[i];
          indexes.After = i;
      }
-     
-     if(headers[i].innerHTML == "Carbs")
-         indexes.Carbs = i;
-     else if(headers[i].innerHTML == "Fat")
-         indexes.Fat = i;
-     else if(headers[i].innerHTML == "Protein")
-         indexes.Protein = i;
     }
     
     for(i in names)
@@ -112,7 +113,7 @@ function AddDerivedCalories(mealHeaderElement, indexes)
      {
          if(j == indexes.After)
          {
-          var totalCalories = CalculateTotalCaloriesFromStrMacros(tds[indexes.Carbs].innerHTML, tds[indexes.Fat].innerHTML, tds[indexes.Protein].innerHTML);       
+          var totalCalories = CalculateTotalCaloriesFromStrMacros(tds[indexes.Carbs].innerText, tds[indexes.Fat].innerText, tds[indexes.Protein].innerText);       
           if(!isNaN(totalCalories))
           {
               var newNode = InsertClonedNodeAfter(trs[i], tds[j], totalCalories);
@@ -134,42 +135,47 @@ function ReplaceGoals(totalCalories, totalCarbs, totalFat, totalProtein)
     var elems = document.getElementsByTagName('*'), i;
     
     var currentLabelId = parseInt(-1);
+    var goalLabelId    = parseInt(-1);
+    var remainingLabelId = parseInt(-1);
     
     for(i in elems)
     {
-        if( ((" " + elems[i].className + " ").indexOf(" " + classString + " ") > -1) && (elems[i].innerHTML == innerString) )
+        if((" " + elems[i].className + " ").indexOf(" " + classString + " ") > -1)
         {
-            currentLabelId = parseInt(i);
-            break;
+            if(elems[i].innerText == "Totals")
+            {
+                currentLabelId = parseInt(i);
+            }
+            else if (elems[i].innerText == "Your Daily Goal")
+            {
+                goalLabelId = parseInt(i);
+            }
+            else if (elems[i].innerText == "Remaining")
+            {
+                remainingLabelId = parseInt(i);
+            }
         }
     }
     
     var currentCaloriesId = currentLabelId + 1;
-    var currentCarbId = currentCaloriesId + 1;
-    var currentFatId = currentCarbId + 1;
-    var currentProteinId = currentFatId + 1;
+    var currentCarbId = currentCaloriesId + 2;
+    var currentFatId = currentCarbId + 3;
+    var currentProteinId = currentFatId + 3;
     
-    var goalLabelId = currentProteinId + 4;
     var caloriesGoalId = goalLabelId + 1;
-    var carbGoalId = caloriesGoalId + 1;
-    var fatGoalId = carbGoalId + 1;
-    var proteinGoalId = fatGoalId + 1;
+    var carbGoalId = caloriesGoalId + 2;
+    var fatGoalId = carbGoalId + 3;
+    var proteinGoalId = fatGoalId + 3;
     
     elems[caloriesGoalId].innerHTML = totalCalories;
     elems[carbGoalId].innerHTML = totalCarbs;
     elems[fatGoalId].innerHTML = totalFat;
     elems[proteinGoalId].innerHTML = totalProtein;
     
-    var remainingLabelId = proteinGoalId + 4;
     var remainingCaloriesId = remainingLabelId + 1;
-    var remainingCarbId = remainingCaloriesId + 1;
-    var remainingFatId = remainingCarbId + 1;
-    var remainingProteinId = remainingFatId + 1;
-    
-    /*elems[remainingCaloriesId].innerHTML = parseInt(totalCalories)  - parseInt(elems[currentCaloriesId].innerHTML.replace(",", ""));     
-    elems[remainingCarbId].innerHTML = parseInt(totalCarbs) - parseInt(elems[currentCarbId].innerHTML.replace(",", ""));
-    elems[remainingFatId].innerHTML = parseInt(totalFat) - parseInt(elems[currentFatId].innerHTML.replace(",", ""));
-    elems[remainingProteinId].innerHTML = parseInt(totalProtein) - parseInt(elems[currentProteinId].innerHTML.replace(",", ""));*/
+    var remainingCarbId = remainingCaloriesId + 2;
+    var remainingFatId = remainingCarbId + 3;
+    var remainingProteinId = remainingFatId + 3;
      
     UpdateRemainingElement(elems[remainingCaloriesId], totalCalories, elems[currentCaloriesId].innerHTML);
     UpdateRemainingElement(elems[remainingCarbId], totalCarbs, elems[currentCarbId].innerHTML);
