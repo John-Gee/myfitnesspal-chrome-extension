@@ -173,9 +173,9 @@ function ReplaceGoals(totalCalories, totalCarbs, totalFat, totalProtein)
     elems[proteinGoalId].innerHTML = totalProtein;
     
     var remainingCaloriesId = remainingLabelId + 1;
-    var remainingCarbId = remainingCaloriesId + 2;
-    var remainingFatId = remainingCarbId + 3;
-    var remainingProteinId = remainingFatId + 3;
+    var remainingCarbId = remainingCaloriesId + 1;
+    var remainingFatId = remainingCarbId + 1;
+    var remainingProteinId = remainingFatId + 1;
      
     UpdateRemainingElement(elems[remainingCaloriesId], totalCalories, elems[currentCaloriesId].innerHTML);
     UpdateRemainingElement(elems[remainingCarbId], totalCarbs, elems[currentCarbId].innerHTML);
@@ -185,7 +185,7 @@ function ReplaceGoals(totalCalories, totalCarbs, totalFat, totalProtein)
 
 function UpdateRemainingElement(element, total, current)
 {
-    element.innerHTML = parseInt(total)  - parseInt(current.replace(",", ""));
+    element.innerText = parseInt(total)  - parseInt(current.replace(",", ""));
     SetColorElement(element);
 }
 
