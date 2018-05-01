@@ -17,7 +17,7 @@
     ],
     "content_scripts": [
         {
-            "matches": ["http://www.myfitnesspal.com/food/diary*"],
+            "matches": ["*://www.myfitnesspal.com/food/diary*"],
             "js": [
                 "jquery/lib/jquery.min.js",
                 "jquery/lib/jquery-ui.min.js",
