@@ -61,19 +61,23 @@ function AddHeaders(mealHeaderElement, names, afterName, indexes)
 
     for(i in headers)
     {
-     if(headers[i].innerHTML == undefined)
-         break;
-     else if(headers[i].innerText == "Carbs\ng\n")
-         indexes.Carbs = i;
-     else if(headers[i].innerText == "Fat\ng\n")
-         indexes.Fat = i;
-     else if(headers[i].innerText == "Protein\ng\n")
-         indexes.Protein = i;
-     else
-     {
-         afterNode = headers[i];
-         indexes.After = i;
-     }
+        if(headers[i].innerHTML == undefined)
+            break;
+        switch(headers[i].innerText.trim().replace(/ +/g, " "))
+        {
+            case "Carbs\ng":
+                indexes.Carbs = i;
+                break;
+            case "Fat\ng":
+                indexes.Fat = i;
+                break;
+            case "Protein\ng":
+                indexes.Protein = i;
+                break;
+            default:
+                afterNode = headers[i];
+                indexes.After = i;
+        }
     }
 
     for(i in names)
@@ -93,7 +97,7 @@ function AddFooters(mealHeaderElement, names, indexes)
 
     for(i in names)
     {
-     afterNode = InsertClonedNodeAfter(tr, afterNode, names[i]);
+        afterNode = InsertClonedNodeAfter(tr, afterNode, names[i]);
     }
 }
 
@@ -139,19 +143,19 @@ function ReplaceGoals(totalCalories, totalCarbs, totalFat, totalProtein)
 
     for(i in elems)
     {
-        if((" " + elems[i].className + " ").indexOf(" " + classString + " ") > -1)
+        if (elems[i].className == classString)
         {
-            if(elems[i].innerText == "Totals")
+            switch(elems[i].innerText.trim())
             {
-                currentLabelId = parseInt(i);
-            }
-            else if (elems[i].innerText == "Your Daily Goal")
-            {
-                goalLabelId = parseInt(i);
-            }
-            else if (elems[i].innerText == "Remaining")
-            {
-                remainingLabelId = parseInt(i);
+                case "Totals":
+                    currentLabelId = parseInt(i);
+                    break;
+                case "Your Daily Goal":
+                    goalLabelId = parseInt(i);
+                    break;
+                case "Remaining":
+                    remainingLabelId = parseInt(i);
+                    break;
             }
         }
     }
@@ -322,7 +326,7 @@ $(function(){
         AddFooters(mealHeaderElement, names, indexes);
 
         ReplaceGoals(goalCalories, goalCarbs, goallFat, goalProtein);
-        AddDerivedCalories(mealHeaderElement, indexes);         
+        AddDerivedCalories(mealHeaderElement, indexes);
 
         $('.google_ads_with_related_links').remove();
         removejscssfile("show_ads.js", "js");
