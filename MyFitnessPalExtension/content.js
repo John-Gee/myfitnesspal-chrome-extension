@@ -287,8 +287,9 @@ $(function(){
                 var month = d.getFullMonth()
                 var date = d.getFullDate()
 
-                var addURL = "/diary/add?";
+                var addURL = "/food/add_to_diary?";
                 var newAddURL = addURL.concat(dateParam, year, "-", month, "-", date, "&");
+                alert(newAddURL);
                 var addFoodElements = FindElementsByClass("add_food");
                 for(var i = 0; i < addFoodElements.length; ++i)
                     addFoodElements[i].href = addFoodElements[i].href.replace(addURL, newAddURL);
