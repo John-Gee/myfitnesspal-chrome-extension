@@ -1,20 +1,6 @@
-function CalculateTotalCaloriesFromMacros(totalCarbs, totalFat, totalProtein)
-{
-    return (totalCarbs * 4) + (totalFat * 9) + (totalProtein * 4);
-}
-
 function ToIntFromStr(text)
 {
     return parseInt(text.replace(",", ""));
-}
-
-function CalculateTotalCaloriesFromStrMacros(totalCarbs, totalFat, totalProtein)
-{
-    var intTotalCarbs = ToIntFromStr(totalCarbs);
-    var intTotalFat = ToIntFromStr(totalFat);
-    var intTotalProtein = ToIntFromStr(totalProtein);
-
-    return CalculateTotalCaloriesFromMacros(intTotalCarbs, intTotalFat, intTotalProtein);
 }
 
 function FindElementByClass(classString)
@@ -53,10 +39,11 @@ function InsertClonedNodeAfter(parentNode, afterNode, content)
     return newNode;
 }
 
-function AddHeaders(mealHeaderElement, names, afterName, indexes)
+function AddHeaders(mealHeaderElement, names)
 {
     var headers = mealHeaderElement.getElementsByTagName('td');
 
+    var indexes = {};
     var afterNode = undefined;
 
     for(i in headers)
@@ -74,6 +61,8 @@ function AddHeaders(mealHeaderElement, names, afterName, indexes)
             case "Protein\ng":
                 indexes.Protein = i;
                 break;
+            case "Fiber\ng":
+                indexes.Fiber = i;
             default:
                 afterNode = headers[i];
                 indexes.After = i;
@@ -84,6 +73,8 @@ function AddHeaders(mealHeaderElement, names, afterName, indexes)
     {
         afterNode = InsertClonedNodeAfter(mealHeaderElement, afterNode, names[i]);
     }
+
+    return indexes;
 }
 
 function AddFooters(mealHeaderElement, names, indexes)
@@ -101,6 +92,51 @@ function AddFooters(mealHeaderElement, names, indexes)
     }
 }
 
+
+function AddNetCarbs(mealHeaderElement, indexes, goalCarbs)
+{
+    var tableElement = mealHeaderElement.parentNode;
+    var trs = tableElement.getElementsByTagName('tr');
+    var totalNetCarbs = undefined;
+
+    for(i in trs)
+    {
+        if(i == 0)
+            continue;
+
+        var tds = trs[i].getElementsByTagName('td');
+        for(j in tds)
+        {
+            if(j == indexes.After)
+            {
+                if (i == trs.length - 2)
+                    var netCarbs = goalCarbs;
+
+                else if (i == trs.length - 1)
+                    var netCarbs = goalCarbs - totalNetCarbs;
+
+                else
+                    var netCarbs = ToIntFromStr(tds[indexes.Carbs].innerText) - ToIntFromStr(tds[indexes.Fiber].innerText);
+
+                    if (i == trs.length - 3)
+                        totalNetCarbs = netCarbs;
+
+                if(!isNaN(netCarbs))
+                {
+                    var newNode = InsertClonedNodeAfter(trs[i], tds[j], netCarbs);
+                    SetColorElement(newNode);
+                }
+
+                break;
+            }
+        }
+
+        if(i == trs.length - 1)
+            break;
+    }
+}
+
+
 function AddDerivedCalories(mealHeaderElement, indexes)
 {
     var tableElement = mealHeaderElement.parentNode;
@@ -116,7 +152,8 @@ function AddDerivedCalories(mealHeaderElement, indexes)
         {
             if(j == indexes.After)
             {
-                var totalCalories = CalculateTotalCaloriesFromStrMacros(tds[indexes.Carbs].innerText, tds[indexes.Fat].innerText, tds[indexes.Protein].innerText);       
+                var totalCalories = (ToIntFromStr(tds[indexes.Carbs].innerText) * 4) + (ToIntFromStr(tds[indexes.Fat].innerText) * 9) + (ToIntFromStr(tds[indexes.Protein].innerText) * 4);
+
                 if(!isNaN(totalCalories))
                 {
                     var newNode = InsertClonedNodeAfter(trs[i], tds[j], totalCalories);
@@ -315,18 +352,15 @@ $(function(){
 
         var mealHeaderElement = FindMealHeaderElement();
 
-        // cannot end with 'n'
-        var postName = "Protei";
-        var names = [];
-        names.push("DerivedCalories");
+        var names = ["Net Carbs<div class=\"subtitle\">g</div>",
+        "Derived Calories<div class=\"subtitle\">kcal</div>"];
 
-        var indexes = {};
-
-        AddHeaders(mealHeaderElement, names, postName, indexes);
+        var indexes = AddHeaders(mealHeaderElement, names);
         AddFooters(mealHeaderElement, names, indexes);
 
         ReplaceGoals(goalCalories, goalCarbs, goallFat, goalProtein);
         AddDerivedCalories(mealHeaderElement, indexes);
+        AddNetCarbs(mealHeaderElement, indexes, goalCarbs);
 
         $('.google_ads_with_related_links').remove();
         removejscssfile("show_ads.js", "js");
