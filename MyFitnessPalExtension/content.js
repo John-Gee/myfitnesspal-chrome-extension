@@ -34,8 +34,8 @@ function FindElementsByClass(classString)
     var elements = [];
 
     for(i in elems)
-         if ((" " + elems[i].className + " ").indexOf(" " + classString + " ") > -1)
-              elements.push(elems[parseInt(i)]);
+        if ((" " + elems[i].className + " ").indexOf(" " + classString + " ") > -1)
+            elements.push(elems[parseInt(i)]);
 
     return elements;
 }
@@ -82,7 +82,7 @@ function AddHeaders(mealHeaderElement, names, afterName, indexes)
 
     for(i in names)
     {
-     afterNode = InsertClonedNodeAfter(mealHeaderElement, afterNode, names[i]);
+        afterNode = InsertClonedNodeAfter(mealHeaderElement, afterNode, names[i]);
     }
 }
 
@@ -108,28 +108,29 @@ function AddDerivedCalories(mealHeaderElement, indexes)
 
     for(i in trs)
     {
-     if(i == 0)
-         continue;
+        if(i == 0)
+            continue;
 
-     var tds = trs[i].getElementsByTagName('td');
-     for(j in tds)
-     {
-         if(j == indexes.After)
-         {
-          var totalCalories = CalculateTotalCaloriesFromStrMacros(tds[indexes.Carbs].innerText, tds[indexes.Fat].innerText, tds[indexes.Protein].innerText);       
-          if(!isNaN(totalCalories))
-          {
-              var newNode = InsertClonedNodeAfter(trs[i], tds[j], totalCalories);
-              SetColorElement(newNode);
-          }
-          break;
-         }
-     }
+        var tds = trs[i].getElementsByTagName('td');
+        for(j in tds)
+        {
+            if(j == indexes.After)
+            {
+                var totalCalories = CalculateTotalCaloriesFromStrMacros(tds[indexes.Carbs].innerText, tds[indexes.Fat].innerText, tds[indexes.Protein].innerText);       
+                if(!isNaN(totalCalories))
+                {
+                    var newNode = InsertClonedNodeAfter(trs[i], tds[j], totalCalories);
+                    SetColorElement(newNode);
+                }
+                break;
+            }
+        }
 
-     if(i == trs.length - 1)
-         break;
+        if(i == trs.length - 1)
+            break;
     }
 }
+
 
 function ReplaceGoals(totalCalories, totalCarbs, totalFat, totalProtein)
 {
@@ -254,7 +255,6 @@ function GetMonthName(monthNumber)
         return "undefined";
 
     return monthNames[number - 1];
-
 }
 
 var logDiv = document.createElement("div");
@@ -344,4 +344,3 @@ $(function(){
         }
     });
 });
-
