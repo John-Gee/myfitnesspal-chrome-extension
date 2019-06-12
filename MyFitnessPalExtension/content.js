@@ -39,7 +39,8 @@ function InsertClonedNodeAfter(parentNode, afterNode, content)
     return newNode;
 }
 
-function AddHeaders(mealHeaderElement, names)
+
+function GetIndexes(mealHeaderElement)
 {
     var headers = mealHeaderElement.getElementsByTagName('td');
 
@@ -64,17 +65,21 @@ function AddHeaders(mealHeaderElement, names)
             case "Fiber\ng":
                 indexes.Fiber = i;
             default:
-                afterNode = headers[i];
                 indexes.After = i;
         }
     }
 
-    for(i in names)
-    {
-        afterNode = InsertClonedNodeAfter(mealHeaderElement, afterNode, names[i]);
-    }
-
     return indexes;
+}
+
+
+function AddHeaders(mealHeaderElement, names, indexes)
+{
+    var headers = mealHeaderElement.getElementsByTagName('td');
+    afterNode = headers[indexes.After];
+
+    for(i in names)
+        afterNode = InsertClonedNodeAfter(mealHeaderElement, afterNode, names[i]);
 }
 
 function AddFooters(mealHeaderElement, names, indexes)
@@ -87,9 +92,7 @@ function AddFooters(mealHeaderElement, names, indexes)
     var afterNode = tds[indexes.After];
 
     for(i in names)
-    {
         afterNode = InsertClonedNodeAfter(tr, afterNode, names[i]);
-    }
 }
 
 
@@ -355,7 +358,8 @@ $(function(){
         var names = ["Net Carbs<div class=\"subtitle\">g</div>",
         "Derived Calories<div class=\"subtitle\">kcal</div>"];
 
-        var indexes = AddHeaders(mealHeaderElement, names);
+        var indexes = GetIndexes(mealHeaderElement);
+        AddHeaders(mealHeaderElement, names, indexes);
         AddFooters(mealHeaderElement, names, indexes);
 
         ReplaceGoals(goalCalories, goalCarbs, goallFat, goalProtein);
