@@ -108,6 +108,7 @@ function Save()
     //localStorage.clear();
     WriteToLocalStorage("data", data);
     WriteToLocalStorage("fixURL", document.getElementById("url").checked);
+    WriteToLocalStorage("addNetCarbs", document.getElementById("netCarbs").checked);
 }
 
 function WriteToLocalStorage(name, value)
@@ -119,6 +120,7 @@ function Reload()
 {
     data = GetFromLocalStorage("data");
     document.getElementById("url").checked = GetFromLocalStorage("fixURL");
+    document.getElementById("netCarbs").checked = GetFromLocalStorage("addNetCarbs");
 }
 
 function GetFromLocalStorage(name)
@@ -151,6 +153,7 @@ function SetCalorieCycling()
 function Reset()
 {
     document.getElementById("url").checked = false;
+    document.getElementById("netCarbs").checked = false;
     data = [];
     Refresh(false);
 }
@@ -181,6 +184,7 @@ $(function() {
     });
         
     $("#url").button();
+    $("#netCarbs").button();
     
     $("#save").click(function() {
         Save();

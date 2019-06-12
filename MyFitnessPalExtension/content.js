@@ -305,10 +305,11 @@ document.body.appendChild(logDiv);
 $(function(){
 
     chrome.runtime.sendMessage({data: true}, function(response) {
-        var json = JSON.parse(response);
-        var days = JSON.parse(json[0]);
-        var data = JSON.parse(json[1]);
-        var fixURL = JSON.parse(json[2]);
+        var json        = JSON.parse(response);
+        var days        = JSON.parse(json[0]);
+        var data        = JSON.parse(json[1]);
+        var fixURL      = JSON.parse(json[2]);
+        var addNetCarbs = JSON.parse(json[3]);
 
         if (fixURL)
         {
@@ -358,7 +359,7 @@ $(function(){
         var names = ["Derived Calories<div class=\"subtitle\">kcal</div>"];
 
         var indexes = GetIndexes(mealHeaderElement);
-        if ("Fiber" in indexes)
+        if (addNetCarbs && ("Fiber" in indexes))
             names.unshift("Net Carbs<div class=\"subtitle\">g</div>");
 
         AddHeaders(mealHeaderElement, names, indexes);
@@ -366,7 +367,7 @@ $(function(){
 
         ReplaceGoals(goalCalories, goalCarbs, goallFat, goalProtein);
         AddDerivedCalories(mealHeaderElement, indexes);
-        if ("Fiber" in indexes)
+        if (names[0].includes("Net Carbs" ))
             AddNetCarbs(mealHeaderElement, indexes, goalCarbs);
 
         $('.google_ads_with_related_links').remove();

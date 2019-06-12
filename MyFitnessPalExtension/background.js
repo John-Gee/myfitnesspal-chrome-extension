@@ -15,7 +15,8 @@ chrome.runtime.onMessage.addListener(function(msg, _, sendResponse) {
     sendResponse(JSON.stringify([
         localStorage["days"],
         localStorage["data"],
-        localStorage["fixURL"]
+        localStorage["fixURL"],
+        localStorage["addNetCarbs"]
         ]));
   
   
