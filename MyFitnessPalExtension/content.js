@@ -355,16 +355,19 @@ $(function(){
 
         var mealHeaderElement = FindMealHeaderElement();
 
-        var names = ["Net Carbs<div class=\"subtitle\">g</div>",
-        "Derived Calories<div class=\"subtitle\">kcal</div>"];
+        var names = ["Derived Calories<div class=\"subtitle\">kcal</div>"];
 
         var indexes = GetIndexes(mealHeaderElement);
+        if ("Fiber" in indexes)
+            names.unshift("Net Carbs<div class=\"subtitle\">g</div>");
+
         AddHeaders(mealHeaderElement, names, indexes);
         AddFooters(mealHeaderElement, names, indexes);
 
         ReplaceGoals(goalCalories, goalCarbs, goallFat, goalProtein);
         AddDerivedCalories(mealHeaderElement, indexes);
-        AddNetCarbs(mealHeaderElement, indexes, goalCarbs);
+        if ("Fiber" in indexes)
+            AddNetCarbs(mealHeaderElement, indexes, goalCarbs);
 
         $('.google_ads_with_related_links').remove();
         removejscssfile("show_ads.js", "js");
