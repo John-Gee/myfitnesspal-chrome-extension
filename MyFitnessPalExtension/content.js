@@ -47,10 +47,12 @@ function GetIndexes(mealHeaderElement)
     var indexes = {};
     var afterNode = undefined;
 
-    for(i in headers)
+    for(j in headers)
     {
-        if(headers[i].innerHTML == undefined)
+        i = parseInt(j);
+        if(isNaN(i))
             break;
+
         switch(headers[i].innerText.trim().replace(/ +/g, " "))
         {
             case "Carbs\ng":
@@ -366,9 +368,12 @@ $(function(){
         AddFooters(mealHeaderElement, names, indexes);
 
         ReplaceGoals(goalCalories, goalCarbs, goallFat, goalProtein);
-        AddDerivedCalories(mealHeaderElement, indexes);
         if (names[0].includes("Net Carbs" ))
+        {
             AddNetCarbs(mealHeaderElement, indexes, goalCarbs);
+            indexes.After = indexes.After + 1;
+        }
+        AddDerivedCalories(mealHeaderElement, indexes);
 
         $('.google_ads_with_related_links').remove();
         removejscssfile("show_ads.js", "js");
