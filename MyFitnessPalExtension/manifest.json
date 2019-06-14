@@ -1,6 +1,6 @@
 {
     "name": "myfitnesspalExtension",
-    "version": "0.2",
+    "version": "0.3",
     "manifest_version": 2,
     "description": "An extension for the MyFitnessPal website",
     "options_page": "options.html",
