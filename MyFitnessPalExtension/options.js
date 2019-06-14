@@ -6,9 +6,9 @@ var columns = [
     {id: "carbs", name: "Carbs", field: "carbs", width: 100, editor: FormulaEditor},
     {id: "fat", name: "Fat", field: "fat", width: 100, editor: FormulaEditor},
     {id: "protein", name: "Protein", field: "protein", width: 100, editor: FormulaEditor},
-    {id: "totalderivedcalories", name: "Total derived calories", field: "totalderivedcalories", width: 225, focusable: false},
-    {id: "totaldesiredcalories", name: "Total desired calories", field: "totaldesiredcalories", width: 225, editor: FormulaEditor},
-    {id: "totalcaloriesdifference", name: "Total calories difference", field: "totalcaloriesdifference", width: 225, focusable: false},
+    {id: "totalderivedcalories", name: "Derived calories", field: "totalderivedcalories", width: 225, focusable: false},
+    {id: "totaldesiredcalories", name: "Desired calories", field: "totaldesiredcalories", width: 225, editor: FormulaEditor},
+    {id: "totalcaloriesdifference", name: "Calories difference", field: "totalcaloriesdifference", width: 225, focusable: false},
 ];
 
 var options = {
