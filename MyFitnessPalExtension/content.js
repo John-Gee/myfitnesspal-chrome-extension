@@ -375,9 +375,6 @@ $(function(){
         }
         AddDerivedCalories(mealHeaderElement, indexes);
 
-        $('.google_ads_with_related_links').remove();
-        removejscssfile("show_ads.js", "js");
-
         var contentElem = document.getElementsByTagName("content");
         content.removeChild(content.firstChild);
 
